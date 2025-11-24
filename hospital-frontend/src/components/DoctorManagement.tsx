@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { doctorAPI } from '../services/api';
 import { Doctor, DoctorFormData } from '../types';
-import { Plus, Edit, Search, Stethoscope, Phone, Mail } from 'lucide-react';
+import { Plus, Edit, Search, Stethoscope, Phone, Mail, Clock } from 'lucide-react';
 
 const DoctorManagement: React.FC = () => {
   const [doctors, setDoctors] = useState<Doctor[]>([]);
@@ -118,11 +118,11 @@ const DoctorManagement: React.FC = () => {
   }
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
+    <div className="p-4 sm:p-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-4 mb-6">
         <div>
-          <h1 className="text-3xl font-bold text-gray-900">Doctor Management</h1>
-          <p className="text-gray-600 mt-2">Manage doctor profiles and schedules</p>
+          <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Doctor Management</h1>
+          <p className="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base">Manage doctor profiles and schedules</p>
         </div>
         <button
           onClick={() => {
@@ -130,7 +130,7 @@ const DoctorManagement: React.FC = () => {
             resetForm();
             setShowForm(true);
           }}
-          className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center space-x-2 hover:bg-blue-700 transition-colors"
+          className="bg-blue-600 text-white px-4 py-2 rounded-lg flex items-center justify-center sm:justify-start space-x-2 hover:bg-blue-700 transition-colors w-full sm:w-auto"
         >
           <Plus className="w-5 h-5" />
           <span>Add Doctor</span>
@@ -153,10 +153,10 @@ const DoctorManagement: React.FC = () => {
 
       {/* Doctor Form Modal */}
       {showForm && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-2 sm:p-4 z-50">
           <div className="bg-white rounded-lg w-full max-w-4xl max-h-[90vh] overflow-y-auto">
-            <div className="p-6">
-              <h2 className="text-2xl font-bold mb-4">
+            <div className="p-4 sm:p-6">
+              <h2 className="text-xl sm:text-2xl font-bold mb-4">
                 {editingDoctor ? 'Edit Doctor' : 'Add New Doctor'}
               </h2>
               <form onSubmit={handleSubmit} className="space-y-4">
@@ -170,7 +170,7 @@ const DoctorManagement: React.FC = () => {
                       required
                       value={formData.first_name}
                       onChange={(e) => setFormData({ ...formData, first_name: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                     />
                   </div>
                   <div>
@@ -182,7 +182,7 @@ const DoctorManagement: React.FC = () => {
                       required
                       value={formData.last_name}
                       onChange={(e) => setFormData({ ...formData, last_name: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                     />
                   </div>
                 </div>
@@ -196,7 +196,7 @@ const DoctorManagement: React.FC = () => {
                       required
                       value={formData.specialization}
                       onChange={(e) => setFormData({ ...formData, specialization: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                     >
                       <option value="">Select Specialization</option>
                       {specializations.map(spec => (
@@ -214,12 +214,12 @@ const DoctorManagement: React.FC = () => {
                       value={formData.qualification}
                       onChange={(e) => setFormData({ ...formData, qualification: e.target.value })}
                       placeholder="e.g., MBBS, MD, MS"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Experience (Years) *
@@ -230,7 +230,7 @@ const DoctorManagement: React.FC = () => {
                       min="0"
                       value={formData.experience}
                       onChange={(e) => setFormData({ ...formData, experience: parseInt(e.target.value) })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                     />
                   </div>
                   <div>
@@ -241,7 +241,7 @@ const DoctorManagement: React.FC = () => {
                       required
                       value={formData.department}
                       onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                     >
                       <option value="">Select Department</option>
                       {departments.map(dept => (
@@ -260,12 +260,12 @@ const DoctorManagement: React.FC = () => {
                       step="50"
                       value={formData.consultation_fee}
                       onChange={(e) => setFormData({ ...formData, consultation_fee: parseFloat(e.target.value) })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Phone Number *
@@ -275,7 +275,7 @@ const DoctorManagement: React.FC = () => {
                       required
                       value={formData.phone}
                       onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                     />
                   </div>
                   <div>
@@ -287,12 +287,12 @@ const DoctorManagement: React.FC = () => {
                       required
                       value={formData.email}
                       onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                     />
                   </div>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-sm font-medium text-gray-700 mb-1">
                       Available From *
@@ -302,7 +302,7 @@ const DoctorManagement: React.FC = () => {
                       required
                       value={formData.available_from}
                       onChange={(e) => setFormData({ ...formData, available_from: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                     />
                   </div>
                   <div>
@@ -314,12 +314,12 @@ const DoctorManagement: React.FC = () => {
                       required
                       value={formData.available_to}
                       onChange={(e) => setFormData({ ...formData, available_to: e.target.value })}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-sm sm:text-base"
                     />
                   </div>
                 </div>
 
-                <div className="flex justify-end space-x-3 pt-4">
+                <div className="flex flex-col sm:flex-row justify-end space-y-2 sm:space-y-0 sm:space-x-3 pt-4">
                   <button
                     type="button"
                     onClick={() => {
@@ -327,13 +327,13 @@ const DoctorManagement: React.FC = () => {
                       setEditingDoctor(null);
                       resetForm();
                     }}
-                    className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors"
+                    className="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors w-full sm:w-auto"
                   >
                     Cancel
                   </button>
                   <button
                     type="submit"
-                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+                    className="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors w-full sm:w-auto"
                   >
                     {editingDoctor ? 'Update Doctor' : 'Add Doctor'}
                   </button>
@@ -345,12 +345,12 @@ const DoctorManagement: React.FC = () => {
       )}
 
       {/* Doctors Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
         {filteredDoctors.map((doctor) => (
-          <div key={doctor.id} className="bg-white rounded-lg shadow-sm border p-6">
+          <div key={doctor.id} className="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
             <div className="flex items-center justify-between mb-4">
-              <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
-                <Stethoscope className="w-6 h-6 text-blue-600" />
+              <div className="w-10 h-10 sm:w-12 sm:h-12 bg-blue-100 rounded-full flex items-center justify-center">
+                <Stethoscope className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600" />
               </div>
               <span className={`px-2 py-1 rounded-full text-xs font-medium ${
                 doctor.is_active 
@@ -368,41 +368,42 @@ const DoctorManagement: React.FC = () => {
             <div className="space-y-2 text-sm text-gray-600 mb-4">
               <div className="flex items-center space-x-2">
                 <span className="font-medium">Specialization:</span>
-                <span>{doctor.specialization}</span>
+                <span className="text-xs sm:text-sm">{doctor.specialization}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <span className="font-medium">Department:</span>
-                <span>{doctor.department}</span>
+                <span className="text-xs sm:text-sm">{doctor.department}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <span className="font-medium">Qualification:</span>
-                <span>{doctor.qualification}</span>
+                <span className="text-xs sm:text-sm">{doctor.qualification}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <span className="font-medium">Experience:</span>
-                <span>{doctor.experience} years</span>
+                <span className="text-xs sm:text-sm">{doctor.experience} years</span>
               </div>
               <div className="flex items-center space-x-2">
                 <span className="font-medium">Fee:</span>
-                <span>₹{doctor.consultation_fee}</span>
+                <span className="text-xs sm:text-sm">₹{doctor.consultation_fee}</span>
               </div>
             </div>
 
             <div className="space-y-2 text-sm text-gray-600 mb-4">
               <div className="flex items-center space-x-2">
                 <Phone className="w-4 h-4" />
-                <span>{doctor.phone}</span>
+                <span className="text-xs sm:text-sm">{doctor.phone}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Mail className="w-4 h-4" />
-                <span className="truncate">{doctor.email}</span>
+                <span className="text-xs sm:text-sm truncate">{doctor.email}</span>
               </div>
             </div>
 
-            <div className="flex justify-between items-center pt-4 border-t">
-              <span className="text-sm text-gray-500">
-                Available: {doctor.available_from} - {doctor.available_to}
-              </span>
+            <div className="flex items-center justify-between pt-4 border-t">
+              <div className="flex items-center space-x-1 text-xs sm:text-sm text-gray-500">
+                <Clock className="w-4 h-4" />
+                <span>{doctor.available_from} - {doctor.available_to}</span>
+              </div>
               <button
                 onClick={() => handleEdit(doctor)}
                 className="text-blue-600 hover:text-blue-900 text-sm font-medium"

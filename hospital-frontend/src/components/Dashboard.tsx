@@ -16,7 +16,7 @@ const Dashboard: React.FC = () => {
 
   if (error) {
     return (
-      <div className="bg-red-50 border border-red-200 rounded-lg p-4">
+      <div className="bg-red-50 border border-red-200 rounded-lg p-4 mx-4 md:mx-6">
         <p className="text-red-800">Error loading dashboard: {error}</p>
       </div>
     );
@@ -50,27 +50,28 @@ const Dashboard: React.FC = () => {
   ];
 
   return (
-    <div className="p-6">
-      <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Hospital Dashboard</h1>
-        <p className="text-gray-600 mt-2">Welcome to Indian Hospital Management System</p>
+    <div className="p-4 sm:p-6">
+      <div className="mb-6 sm:mb-8">
+        <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">Hospital Dashboard</h1>
+        <p className="text-gray-600 mt-1 sm:mt-2 text-sm sm:text-base">Welcome to Indian Hospital Management System</p>
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+      {/* Stats Grid */}
+      <div className="grid grid-cols-1 xs:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 mb-6 sm:mb-8">
         {statCards.map((card) => {
           const Icon = card.icon;
           return (
             <div
               key={card.title}
-              className="bg-white rounded-lg shadow-sm border p-6"
+              className="bg-white rounded-lg shadow-sm border p-4 sm:p-6"
             >
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="text-sm font-medium text-gray-600">{card.title}</p>
-                  <p className="text-3xl font-bold text-gray-900 mt-2">{card.value}</p>
+                  <p className="text-xs sm:text-sm font-medium text-gray-600">{card.title}</p>
+                  <p className="text-2xl sm:text-3xl font-bold text-gray-900 mt-1 sm:mt-2">{card.value}</p>
                 </div>
-                <div className={`${card.color} p-3 rounded-lg`}>
-                  <Icon className="w-6 h-6 text-white" />
+                <div className={`${card.color} p-2 sm:p-3 rounded-lg`}>
+                  <Icon className="w-5 h-5 sm:w-6 sm:h-6 text-white" />
                 </div>
               </div>
             </div>
@@ -78,25 +79,26 @@ const Dashboard: React.FC = () => {
         })}
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-        <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Quick Actions</h3>
-          <div className="space-y-3">
-            <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+      {/* Quick Actions and Recent Activity */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 sm:gap-6">
+        <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Quick Actions</h3>
+          <div className="space-y-2 sm:space-y-3">
+            <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-sm sm:text-base">
               📝 Register New Patient
             </button>
-            <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+            <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-sm sm:text-base">
               🗓️ Schedule Appointment
             </button>
-            <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
+            <button className="w-full text-left p-3 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors text-sm sm:text-base">
               💊 Add Medical Record
             </button>
           </div>
         </div>
 
-        <div className="bg-white rounded-lg shadow-sm border p-6">
-          <h3 className="text-lg font-semibold text-gray-900 mb-4">Recent Activity</h3>
-          <div className="space-y-3">
+        <div className="bg-white rounded-lg shadow-sm border p-4 sm:p-6">
+          <h3 className="text-lg font-semibold text-gray-900 mb-3 sm:mb-4">Recent Activity</h3>
+          <div className="space-y-2 sm:space-y-3">
             <div className="text-sm text-gray-600">
               New patient registered - Rajesh Kumar
             </div>
@@ -106,7 +108,45 @@ const Dashboard: React.FC = () => {
             <div className="text-sm text-gray-600">
               Medical record updated for Patient UH123456
             </div>
+            <div className="text-sm text-gray-600">
+              Dr. Patel completed consultation
+            </div>
           </div>
+        </div>
+      </div>
+
+      {/* Upcoming Appointments */}
+      <div className="mt-6 sm:mt-8 bg-white rounded-lg shadow-sm border p-4 sm:p-6">
+        <h3 className="text-lg font-semibold text-gray-900 mb-4">Today's Appointments</h3>
+        <div className="overflow-x-auto">
+          <table className="w-full min-w-[600px]">
+            <thead>
+              <tr className="border-b">
+                <th className="text-left py-2 text-sm font-medium text-gray-500">Time</th>
+                <th className="text-left py-2 text-sm font-medium text-gray-500">Patient</th>
+                <th className="text-left py-2 text-sm font-medium text-gray-500">Doctor</th>
+                <th className="text-left py-2 text-sm font-medium text-gray-500">Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr className="border-b">
+                <td className="py-3 text-sm">10:00 AM</td>
+                <td className="py-3 text-sm">Amit Sharma</td>
+                <td className="py-3 text-sm">Dr. Priya Singh</td>
+                <td className="py-3">
+                  <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Scheduled</span>
+                </td>
+              </tr>
+              <tr className="border-b">
+                <td className="py-3 text-sm">11:30 AM</td>
+                <td className="py-3 text-sm">Neha Patel</td>
+                <td className="py-3 text-sm">Dr. Raj Kumar</td>
+                <td className="py-3">
+                  <span className="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded-full">Scheduled</span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
