@@ -2,6 +2,8 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from database import engine, Base
 from routes import patients, doctors, appointments, medical_records, admin
+from datetime import datetime
+import os
 
 # Create tables
 Base.metadata.create_all(bind=engine)
@@ -31,6 +33,17 @@ app.include_router(admin.router)
 @app.get("/")
 def read_root():
     return {"message": "Welcome to Indian Hospital Management System API"}
+
+# ✅ ADD THIS HEALTH ENDPOINT FOR GITHUB ACTIONS
+@app.get("/api/health")
+async def health_check():
+    return {
+        "status": "healthy",
+        "timestamp": datetime.utcnow().isoformat(),
+        "service": "Indian Hospital Management System API",
+        "environment": os.getenv("ENVIRONMENT", "production"),
+        "version": "1.0.0"
+    }
 
 if __name__ == "__main__":
     import uvicorn
