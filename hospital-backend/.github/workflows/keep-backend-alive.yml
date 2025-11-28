@@ -1,11 +1,13 @@
-name: Keep Hospital Backend Alive
+﻿name: Keep Hospital Backend Alive
 
 on:
   schedule:
     # Run every 14 minutes to stay under Render's 15-minute limit
     - cron: '*/14 * * * *'
-  # Allow manual triggering for testing
   workflow_dispatch:
+
+permissions:
+  contents: read
 
 jobs:
   ping-backend:
@@ -13,26 +15,23 @@ jobs:
     steps:
       - name: Ping Hospital Backend
         run: |
-          echo "🚀 Checking Hospital Management System Backend at $(date)"
+          echo " Checking Hospital Management System Backend at \11/28/2025 13:52:59"
           
-          # ⚠️ REPLACE THIS WITH YOUR ACTUAL RENDER BACKEND URL ⚠️
           BACKEND_URL="https://hospital-management-system-backend-ext6.onrender.com/api/health"
           
-          # Make the request with timeout
-          response=$(curl -s -w "\nHTTP_STATUS:%{http_code}" --max-time 30 "$BACKEND_URL")
+          response=\
           
-          # Extract status code and body
-          status_code=$(echo "$response" | grep "HTTP_STATUS:" | cut -d':' -f2)
-          body=$(echo "$response" | grep -v "HTTP_STATUS:")
+          status_code=\
+          body=\
           
-          echo "📡 Backend URL: $BACKEND_URL"
-          echo "📊 Status Code: $status_code"
-          echo "📄 Response: $body"
+          echo " Backend URL: \"
+          echo " Status Code: \"
+          echo " Response: \"
           
-          if [ "$status_code" -eq 200 ]; then
-            echo "✅ Hospital backend is healthy and awake"
+          if [ "\" -eq 200 ]; then
+            echo " Hospital backend is healthy and awake"
           else
-            echo "❌ Health check failed with status: $status_code"
-            echo "💡 This might be normal during deployment"
+            echo " Health check failed with status: \"
+            echo " This might be normal during deployment"
             exit 1
           fi
