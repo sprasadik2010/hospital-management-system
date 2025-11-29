@@ -1,1 +1,37 @@
-name
+name: Keep Hospital Backend Alive
+
+on:
+  schedule:
+    # Run every 5 minutes to stay under Render's 15-minute limit
+    - cron: '*/5 * * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  ping-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Hospital Backend
+        run: |
+          echo " Checking Hospital Management System Backend at \11/28/2025 13:52:59"
+          
+          BACKEND_URL="https://hospital-management-system-backend-ext6.onrender.com/api/health"
+          
+          response=\
+          
+          status_code=\
+          body=\
+          
+          echo " Backend URL: \"
+          echo " Status Code: \"
+          echo " Response: \"
+          
+          if [ "\" -eq 200 ]; then
+            echo " Hospital backend is healthy and awake"
+          else
+            echo " Health check failed with status: \"
+            echo " This might be normal during deployment"
+            exit 1
+          fi
