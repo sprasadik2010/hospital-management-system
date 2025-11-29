@@ -2,8 +2,8 @@
 
 on:
   schedule:
-    # Run every 14 minutes to stay under Render's 15-minute limit
-    - cron: '*/14 * * * *'
+    # Run every 5 minutes to stay under Render's 15-minute limit
+    - cron: '*/5 * * * *'
   workflow_dispatch:
 
 permissions:
