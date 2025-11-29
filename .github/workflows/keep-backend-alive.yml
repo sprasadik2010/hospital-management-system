@@ -2,7 +2,7 @@ name: Keep Hospital Backend Alive
 
 on:
   schedule:
-    # Run every 5 minutes to stay under Render's 15-minute limit
+    # Run every 5 minutes (Render free plan goes idle at 15 minutes)
     - cron: '*/5 * * * *'
   workflow_dispatch:
 
@@ -15,23 +15,28 @@ jobs:
     steps:
       - name: Ping Hospital Backend
         run: |
-          echo " Checking Hospital Management System Backend at \11/28/2025 13:52:59"
+          echo "Checking Hospital Management System Backend at $(date '+%m/%d/%Y %H:%M:%S')"
           
           BACKEND_URL="https://hospital-management-system-backend-ext6.onrender.com/api/health"
+          echo "Backend URL: $BACKEND_URL"
           
-          response=\
+          # Call API
+          response=$(curl -s -w "\n%{http_code}" "$BACKEND_URL")
           
-          status_code=\
-          body=\
+          # Extract status code (last line of response)
+          status_code=$(echo "$response" | tail -n1)
           
-          echo " Backend URL: \"
-          echo " Status Code: \"
-          echo " Response: \"
+          # Extract response body (everything except last line)
+          body=$(echo "$response" | sed '$d')
           
-          if [ "\" -eq 200 ]; then
-            echo " Hospital backend is healthy and awake"
+          echo "Status Code: $status_code"
+          echo "Response Body: $body"
+          
+          # Check status
+          if [ "$status_code" -eq 200 ]; then
+            echo "Hospital backend is healthy and awake."
           else
-            echo " Health check failed with status: \"
-            echo " This might be normal during deployment"
+            echo "Health check failed with status: $status_code"
+            echo "This might be normal if Render is cold-starting."
             exit 1
           fi
