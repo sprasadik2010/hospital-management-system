@@ -3,7 +3,7 @@ name: Keep Hospital Backend Alive
 on:
   schedule:
     # Run every 1 minutes (Render free plan goes idle at 15 minutes)
-    - cron: '*/1 * * * *'
+    - cron: '*/0 * * * *'
   workflow_dispatch:
 
 permissions:
